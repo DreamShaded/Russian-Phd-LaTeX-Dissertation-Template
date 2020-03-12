@@ -1,5 +1,7 @@
 $DRAFTON = $ENV{DRAFTON};
 $DRAFTON //= '';
+$SHOWMARKUP = $ENV{SHOWMARKUP};
+$SHOWMARKUP //= '';
 $FONTFAMILY = $ENV{FONTFAMILY};
 $FONTFAMILY //= '';
 $ALTFONT = $ENV{ALTFONT};
@@ -24,12 +26,18 @@ $TIMERON = $ENV{TIMERON};
 $TIMERON //= '0';
 $TIKZFILE = $ENV{TIKZFILE};
 $TIKZFILE //= '';
+$USEDEV = $ENV{USEDEV};
+$USEDEV //= '';
 
 
 $texargs = '';
 if ($DRAFTON ne '') {
     $texargs = $texargs . '\newcounter{draft}' .
         '\setcounter{draft}' . '{' . $DRAFTON . '}';
+}
+if ($SHOWMARKUP ne '') {
+    $texargs = $texargs . '\newcounter{showmarkup}' .
+        '\setcounter{showmarkup}' . '{' . $SHOWMARKUP . '}';
 }
 if ($FONTFAMILY ne '') {
     $texargs = $texargs . '\newcounter{fontfamily}' .
@@ -79,6 +87,12 @@ if ( (! defined &set_tex_cmds) || (! defined $pre_tex_code) ) {
 } else { # for latexmk >= 4.61
     set_tex_cmds($LATEXFLAGS . ' %O %P');
     $pre_tex_code = $texargs;
+}
+
+if ($USEDEV ne '') {
+    $pdflatex =~ s/pdflatex/pdflatex-dev/g;
+    $xelatex =~ s/xelatex/xelatex-dev/g;
+    $lualatex =~ s/lualatex/lualatex-dev/g;
 }
 
 $biber = 'biber ' . $BIBERFLAGS . ' %O %S';
