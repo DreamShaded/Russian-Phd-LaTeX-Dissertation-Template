@@ -1,17 +1,19 @@
+\pdfbookmark{Общая характеристика работы}{characteristic}             % Закладка pdf
 \section*{Общая характеристика работы}
 
-\newcommand{\actuality}{\underline{\textbf{\actualityTXT}}}
-\newcommand{\progress}{\underline{\textbf{\progressTXT}}}
-\newcommand{\aim}{\underline{{\textbf\aimTXT}}}
-\newcommand{\tasks}{\underline{\textbf{\tasksTXT}}}
-\newcommand{\novelty}{\underline{\textbf{\noveltyTXT}}}
-\newcommand{\influence}{\underline{\textbf{\influenceTXT}}}
-\newcommand{\methods}{\underline{\textbf{\methodsTXT}}}
-\newcommand{\defpositions}{\underline{\textbf{\defpositionsTXT}}}
-\newcommand{\reliability}{\underline{\textbf{\reliabilityTXT}}}
-\newcommand{\probation}{\underline{\textbf{\probationTXT}}}
-\newcommand{\contribution}{\underline{\textbf{\contributionTXT}}}
-\newcommand{\publications}{\underline{\textbf{\publicationsTXT}}}
+\newcommand{\actuality}{\pdfbookmark[1]{Актуальность}{actuality}\underline{\textbf{\actualityTXT}}}
+\newcommand{\progress}{\pdfbookmark[1]{Разработанность темы}{progress}\underline{\textbf{\progressTXT}}}
+\newcommand{\aim}{\pdfbookmark[1]{Цели}{aim}\underline{{\textbf\aimTXT}}}
+\newcommand{\tasks}{\pdfbookmark[1]{Задачи}{tasks}\underline{\textbf{\tasksTXT}}}
+\newcommand{\aimtasks}{\pdfbookmark[1]{Цели и задачи}{aimtasks}\aimtasksTXT}
+\newcommand{\novelty}{\pdfbookmark[1]{Научная новизна}{novelty}\underline{\textbf{\noveltyTXT}}}
+\newcommand{\influence}{\pdfbookmark[1]{Практическая значимость}{influence}\underline{\textbf{\influenceTXT}}}
+\newcommand{\methods}{\pdfbookmark[1]{Методология и методы исследования}{methods}\underline{\textbf{\methodsTXT}}}
+\newcommand{\defpositions}{\pdfbookmark[1]{Положения, выносимые на защиту}{defpositions}\underline{\textbf{\defpositionsTXT}}}
+\newcommand{\reliability}{\pdfbookmark[1]{Достоверность}{reliability}\underline{\textbf{\reliabilityTXT}}}
+\newcommand{\probation}{\pdfbookmark[1]{Апробация}{probation}\underline{\textbf{\probationTXT}}}
+\newcommand{\contribution}{\pdfbookmark[1]{Личный вклад}{contribution}\underline{\textbf{\contributionTXT}}}
+\newcommand{\publications}{\pdfbookmark[1]{Публикации}{publications}\underline{\textbf{\publicationsTXT}}}
 
 \input{common/characteristic} % Характеристика работы по структуре во введении и в автореферате не отличается (ГОСТ Р 7.0.11, пункты 5.3.1 и 9.2.1), потому её загружаем из одного и того же внешнего файла, предварительно задав форму выделения некоторым параметрам
 
@@ -22,6 +24,7 @@
 %\textbf{ХХХ}~страниц текста с~\textbf{ХХ}~рисунками и~5~таблицами. Список
 %литературы содержит \textbf{ХХX}~наименование.
 
+\pdfbookmark{Содержание работы}{description}                          % Закладка pdf
 \section*{Содержание работы}
 Во \underline{\textbf{введении}} обосновывается актуальность
 исследований, проводимых в~рамках данной диссертационной работы,
@@ -34,18 +37,24 @@
 
 \underline{\textbf{Первая глава}} посвящена \dots
 
- картинку можно добавить так:
+картинку можно добавить так:
 \begin{figure}[ht]
-  \centerfloat{
-    \includegraphics[scale=0.27]{latex}
-  }
-  \caption{Подпись к картинке.}\label{fig:latex}
+    \centerfloat{
+        \hfill
+        \subcaptionbox{\LaTeX}{%
+            \includegraphics[scale=0.27]{latex}}
+        \hfill
+        \subcaptionbox{Knuth}{%
+            \includegraphics[width=0.25\linewidth]{knuth1}}
+        \hfill
+    }
+    \caption{Подпись к картинке.}\label{fig:latex}
 \end{figure}
 
 Формулы в строку без номера добавляются так:
 \[
-  \lambda_{T_s} = K_x\frac{d{x}}{d{T_s}}, \qquad
-  \lambda_{q_s} = K_x\frac{d{x}}{d{q_s}},
+    \lambda_{T_s} = K_x\frac{d{x}}{d{T_s}}, \qquad
+    \lambda_{q_s} = K_x\frac{d{x}}{d{q_s}},
 \]
 
 \underline{\textbf{Вторая глава}} посвящена исследованию
@@ -61,9 +70,12 @@
 
 В \underline{\textbf{четвертой главе}} приведено описание
 
+\FloatBarrier
+\pdfbookmark{Заключение}{conclusion}                                  % Закладка pdf
 В \underline{\textbf{заключении}} приведены основные результаты работы, которые заключаются в следующем:
 \input{common/concl}
 
+\pdfbookmark{Литература}{bibliography}                                % Закладка pdf
 При использовании пакета \verb!biblatex! список публикаций автора по теме
 диссертации формируется в разделе <<\publications>>\ файла
 \verb!common/characteristic.tex!  при помощи команды \verb!\nocite!
@@ -71,62 +83,73 @@
 \ifdefmacro{\microtypesetup}{\microtypesetup{protrusion=false}}{} % не рекомендуется применять пакет микротипографики к автоматически генерируемому списку литературы
 \urlstyle{rm}                               % ссылки URL обычным шрифтом
 \ifnumequal{\value{bibliosel}}{0}{% Встроенная реализация с загрузкой файла через движок bibtex8
-  \renewcommand{\bibname}{\large \bibtitleauthor}
-  \nocite{*}
-  \insertbiblioauthor           % Подключаем Bib-базы
-  %\insertbiblioexternal   % !!! bibtex не умеет работать с несколькими библиографиями !!!
+    \renewcommand{\bibname}{\large \bibtitleauthor}
+    \nocite{*}
+    \insertbiblioauthor           % Подключаем Bib-базы
+    %\insertbiblioexternal   % !!! bibtex не умеет работать с несколькими библиографиями !!!
 }{% Реализация пакетом biblatex через движок biber
-  % Цитирования.
-  %  * Порядок перечисления определяет порядок в библиографии (только внутри подраздела, если `\insertbiblioauthorgrouped`).
-  %  * Если не соблюдать порядок "как для \printbibliography", нумерация в `\insertbiblioauthor` будет кривой.
-  %  * Если цитировать каждый источник отдельной командой --- найти некоторые ошибки будет проще.
-  %
-  %% authorvak
-  \nocite{vakbib1}%
-  \nocite{vakbib2}%
-  %
-  %% authorwos
-  \nocite{wosbib1}%
-  %
-  %% authorscopus
-  \nocite{scbib1}%
-  %
-  %% authorconf
-  \nocite{confbib1}%
-  \nocite{confbib2}%
-  %
-  %% authorother
-  \nocite{bib1}%
-  \nocite{bib2}%
+    % Цитирования.
+    %  * Порядок перечисления определяет порядок в библиографии (только внутри подраздела, если `\insertbiblioauthorgrouped`).
+    %  * Если не соблюдать порядок "как для \printbibliography", нумерация в `\insertbiblioauthor` будет кривой.
+    %  * Если цитировать каждый источник отдельной командой --- найти некоторые ошибки будет проще.
+    %
+    %% authorvak
+    \nocite{vakbib1}%
+    \nocite{vakbib2}%
+    %
+    %% authorwos
+    \nocite{wosbib1}%
+    %
+    %% authorscopus
+    \nocite{scbib1}%
+    %
+    %% authorpathent
+    \nocite{patbib1}%
+    %
+    %% authorprogram
+    \nocite{progbib1}%
+    %
+    %% authorconf
+    \nocite{confbib1}%
+    \nocite{confbib2}%
+    %
+    %% authorother
+    \nocite{bib1}%
+    \nocite{bib2}%
 
-  \ifnumgreater{\value{usefootcite}}{0}{
-    \begin{refcontext}[labelprefix={}]
-      \ifnum \value{bibgrouped}>0
-        \insertbiblioauthorgrouped    % Вывод всех работ автора, сгруппированных по источникам
-      \else
-        \insertbiblioauthor      % Вывод всех работ автора
-      \fi
-    \end{refcontext}
-  }{
-  \ifnum \value{citeexternal}>0
-    \begin{refcontext}[labelprefix=A]
-      \ifnum \value{bibgrouped}>0
-        \insertbiblioauthorgrouped    % Вывод всех работ автора, сгруппированных по источникам
-      \else
-        \insertbiblioauthor      % Вывод всех работ автора
-      \fi
-    \end{refcontext}
-  \else
-    \ifnum \value{bibgrouped}>0
-      \insertbiblioauthorgrouped    % Вывод всех работ автора, сгруппированных по источникам
-    \else
-      \insertbiblioauthor      % Вывод всех работ автора
-    \fi
-  \fi
-  %  \insertbiblioauthorimportant  % Вывод наиболее значимых работ автора (определяется в файле characteristic во второй section)
-  \begin{refcontext}[labelprefix={}]    \insertbiblioexternal            % Вывод списка литературы, на которую ссылались в тексте автореферата
-  \end{refcontext}
-  }
+    \ifnumgreater{\value{usefootcite}}{0}{
+        \begin{refcontext}[labelprefix={}]
+            \ifnum \value{bibgrouped}>0
+                \insertbiblioauthorgrouped    % Вывод всех работ автора, сгруппированных по источникам
+            \else
+                \insertbiblioauthor      % Вывод всех работ автора
+            \fi
+        \end{refcontext}
+    }{
+        \ifnum \totvalue{citeexternal}>0
+            \begin{refcontext}[labelprefix=A]
+                \ifnum \value{bibgrouped}>0
+                    \insertbiblioauthorgrouped    % Вывод всех работ автора, сгруппированных по источникам
+                \else
+                    \insertbiblioauthor      % Вывод всех работ автора
+                \fi
+            \end{refcontext}
+        \else
+            \ifnum \value{bibgrouped}>0
+                \insertbiblioauthorgrouped    % Вывод всех работ автора, сгруппированных по источникам
+            \else
+                \insertbiblioauthor      % Вывод всех работ автора
+            \fi
+        \fi
+        %  \insertbiblioauthorimportant  % Вывод наиболее значимых работ автора (определяется в файле characteristic во второй section)
+        \begin{refcontext}[labelprefix={}]
+            \insertbiblioexternal            % Вывод списка литературы, на которую ссылались в тексте автореферата
+        \end{refcontext}
+        % Невидимый библиографический список для подсчёта количества внешних публикаций
+        % Используется, чтобы убрать приставку "А" у работ автора, если в автореферате нет
+        % цитирований внешних источников.
+        \printbibliography[heading=nobibheading, section=0, env=countexternal, keyword=biblioexternal, resetnumbers=true]%
+    }
 }
 \ifdefmacro{\microtypesetup}{\microtypesetup{protrusion=true}}{}
 \urlstyle{tt}                               % возвращаем установки шрифта ссылок URL
